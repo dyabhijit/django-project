@@ -1,0 +1,335 @@
+Django - Chai aur Code
+
+Prerequisites - Python and Html,CSS
+
+1. rapidly fast , security , scalability
+
+it is good to use a ve(virtual Environment). it will help in python, if there is a virtual environment then it does not matter what is the version in my local system
+
+we are using uv(because it is very fast), 
+pip install uv // command
+
+to create the virtual environment
+uv venv // command
+
+here we have bin -> python is already installed there
+bin is there , so every activation libraries are there
+# to activate the virtual environment
+.venv\Scripts\activate
+
+(Chai - Django) PS C:\Users\Lenovo\OneDrive\Desktop\Files Ignite\Chai - Django>
+it means we are in the virtual environment
+
+if we want to deactivate it , we can write just 
+deactivate // command
+
+to install Django
+uv pip install Django 
+we are using uv because we are in a virtual environment , without the deactivate we can not use the pip directly
+
+now 
+django-admin startproject chaiaurdjango // command
+
+then go to chaiaurdjango
+cd chaiaurdjango // command
+
+we are checking how many files are there
+ls // command
+it will show how many files are there with details
+
+then run the manage file
+
+python manage.py runserver (port number)
+
+local host will run by default in port number 8000
+
+copy the link and paste it in a browser, then you will get your first Django app front page ,
+it is showing the page because the debug=True
+
+now file exploration starts
+1. manage.py it is the most important file
+it is the starting point file , this file will set the environment variable and other important things
+after going in the production this will invoke the system, so this file will execute at first
+
+we will make more files like this , and we have to know where is the indentation of the files, which are the levels of the files,
+are they in the manage.py level or any other level
+,or inside folder level or app level
+if the files and folders are in manage.py level then it is called root level
+ this rule mentains by the framework company, we have to work on their rules , or we will not face the expected behavouir
+
+db.sqlite3
+this is the default database which is used in Django
+the python code doesn't effect the database, we can change or shift the database by little line of code 
+we have to just write little configuration and then true or false
+
+inside the chaiaurcode folder, there is a folder named chaiaurcode folder, this is the project folder
+the basic thing are in this folder
+normally we create an app folder and work on it
+
+cache folder-
+when we have multiple modules then we use it
+
+settings.py is also a very important file
+all configuration is written in this file
+like base file, secret keys etc.. like debug=ture,allowed host = []
+
+in Django everything is like an app,
+like there is an ecommerce website, 
+so the coupons should be in app, they can interact with each other
+product categories, check out etc.
+
+there are many middlewares in Django
+and many things you will get in by default
+like authentication, protection from click jaking..
+
+admin panel
+in Django we got many things in admin panel without writing much code
+
+if we have to change the project setting then only we go to settings
+we dont need to change many things
+just little change will impact alot
+
+
+urls.py
+this file is used for routing
+
+this should be a views.py file
+it defines the views
+which controls the controls and business requirement
+
+model.py
+where we put database models
+database structure done in model.py
+some routing happens in from the admin, which is in the url.py
+
+
+templetes and errors in Django
+
+
+views.py
+it should be views.py named, in Django framework we have to follow the naming convention and also the indentation
+this file should be stored in chaiaurdjango folder level
+
+create views.py file in the chaiaurdjango
+then 
+from django.http import HttpResponse
+so from django.http we are importing httpresponse
+in python we need to import only that, the other things are not needed like the other languages
+
+def home(request):
+    return HttpResponse("Hello, World. You are at chai aur Django home page")
+we created a method here and like this when home have a request then we have this message to return
+
+
+similarly
+def about(request):
+    return HttpResponse("Hello, World. You are at chai aur Django about page")
+
+def conatact(request):
+    return HttpResponse("Hello, World. You are at chai aur Django contact page") 
+we add these methods and the names of the methods doesn't matter
+
+
+
+then we go to url.py
+//code
+from django.contrib import admin
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', views.home, name='home'),
+    path('about/', views.about, name='about'),
+    path('contact/', views.contact, name='contact'),
+]
+
+we add this
+from . import views // code
+and added path also
+
+path('', views.home, name='home'),
+    path('about/', views.about, name='about'),
+    path('contact/', views.contact, name='contact'),
+
+then python manage.py runserver
+using the link we access the pages
+http://127.0.0.1:8000/   
+to access the home page
+
+http://127.0.0.1:8000/about
+to access the about page
+
+http://127.0.0.1:8000/contact
+to access the contact page
+
+
+now we will use the templetes
+we create the templete folder , the location depends on what is the settings and how you the files
+and we also create a folder with static name
+templates -> html
+static -> css & js
+
+
+from django.shortcuts import render
+
+def home(request):
+    return render(request , 'index.html')
+
+in the template folder we created an html boiler plate
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chai aur Django</title>
+</head>
+<body>
+    <h1>Chai aur Django Home Page</h1>
+</body>
+</html>
+
+
+now we resolve the bug
+
+we did everything right , but did not mentioned that from where we should load the template
+in the root directory , we added templates folder, and we just added the 'templates' in the dictionary of the settings
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chai aur Django</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+    <h1>Chai aur Django</h1>
+</body>
+</html>
+
+
+we added the {% load static %} at the top
+<link rel="stylesheet" href="{% static 'style.css' %}">
+at the end of the heading tag
+
+in settings 
+import os
+we added the import os
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+and added that also
+
+we created templates then website then index.html
+return render(request , 'website/index.html')
+so we added that also
+
+17/11/2025 -------------------------------------------------------------------
+
+now we created the home page , about page and contact page with html css and js
+we put the html files in templates folder
+and css and js in static folder, 
+//urls.py
+
+from django.contrib import admin
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', views.home, name='home'),
+    path('about/', views.about, name='about'),
+    path('contact/', views.contact, name='contact'),
+]
+
+we added the path like this
+
+
+//views.py
+
+from django.http import HttpResponse
+from django.shortcuts import render
+
+def home(request):
+    # return HttpResponse("Hello, World. You are at chai aur Django home page")
+    return render(request , 'website/index.html')
+
+
+def about(request):
+    # return HttpResponse("Hello, World. You are at chai aur Django about page")
+    return render(request , 'website/about.html')
+
+def contact(request):
+    # return HttpResponse("Hello, World. You are at chai aur Django contact page")
+    return render(request , 'website/contact.html')
+
+
+//templates
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+
+
+------------------------------------------------
+
+Django documentation
+
+the template layer
+
+so , what is jinja
+
+Template Layer (Django)
+
+The part of Django that handles HTML pages, where you display data using templates.
+
+Template Engine
+
+A system that processes template files and replaces variables (like {{ name }}) with actual data before sending HTML to the browser.
+we use several template engines in Django, creatively called the Django template language (DTL)
+example - 
+
+Jinja
+
+A template engine (faster and more powerful than Django’s default engine).
+Django’s default engine uses Django Template Language (DTL), but you can also use Jinja2.
+
+
+-----
+
+we have the search where is the manage.py file is
+because using this app , we can run the server and using this file we can create apps
+
+---
+
+creating new app
+
+
+PS C:\Users\Lenovo\OneDrive\Desktop\Files Ignite\Chai - Django\chaiaurdjango> cd ..
+PS C:\Users\Lenovo\OneDrive\Desktop\Files Ignite\Chai - Django> .\.venv\scripts\activate
+(Chai - Django) PS C:\Users\Lenovo\OneDrive\Desktop\Files Ignite\Chai - Django> cd .\chaiaurdjango\
+(Chai - Django) PS C:\Users\Lenovo\OneDrive\Desktop\Files Ignite\Chai - Django\chaiaurdjango> ls
+ Directory: C:\Users\Lenovo\OneDrive\Desktop\Files Ignite\Chai - Django\chaiaurdjango        
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+dar--l        11/16/2025   7:51 PM                chaiaurdjango
+dar--l        11/17/2025  12:38 AM                static
+dar--l        11/16/2025  11:39 PM                templates
+-a---l        11/16/2025   6:40 PM              0 db.sqlite3
+-a---l        11/16/2025   6:36 PM            691 manage.py
+
+
+(Chai - Django) PS C:\Users\Lenovo\OneDrive\Desktop\Files Ignite\Chai - Django\chaiaurdjango> python manage.py startapp chai
+(Chai - Django) PS C:\Users\Lenovo\OneDrive\Desktop\Files Ignite\Chai - Django\chaiaurdjango>
+
+
+this is how we created a app in Django
+
+----------
+
+
+
+

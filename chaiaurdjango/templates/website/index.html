@@ -1,0 +1,43 @@
+ {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - My Company</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header>
+    <h1>My Company</h1>
+    <nav>
+    <a href="index.html" class="active">Home</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+    </nav>
+    </header>
+
+
+    <section class="hero">
+        <h2>Welcome to My Company</h2>
+        <p>Your trusted partner in innovative digital solutions.</p>
+        <a href="contact.html" class="btn">Get in Touch</a>
+    </section>
+
+
+<footer>
+<p>© 2025 My Company — All Rights Reserved</p>
+</footer>
+</body>
+</html> 
+
+
+{% comment %} {% extends "layout.html" %}
+
+{% block title %}
+Home Page
+{% endblock %}
+
+{% block content %}
+Chai aur Code || Home Page
+{% endblock %} {% endcomment %}
