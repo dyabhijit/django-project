@@ -1,5 +1,3 @@
-Django - Chai aur Code
-
 Prerequisites - Python and Html,CSS
 
 1. rapidly fast , security , scalability
